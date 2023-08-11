@@ -4,10 +4,13 @@
  */
 package pos.layered.dao.custom;
 
+import pos.layered.dao.CrudDao;
+import pos.layered.entity.CustomerEntity;
+
 /**
  *
  * @author ASUS
  */
-public interface CustomerDao {
-    
+public interface CustomerDao extends CrudDao<CustomerEntity, String>{
+   
 }
