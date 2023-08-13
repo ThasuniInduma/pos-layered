@@ -11,8 +11,10 @@ import pos.layered.dao.custom.OrderDetailDao;
 import pos.layered.dto.OrderDto;
 import pos.layered.service.custom.OrderService;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+//import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+//import java.util.Date;
 import pos.layered.db.DBConnection;
 import pos.layered.dto.OrderDetailDto;
 import pos.layered.entity.ItemEntity;
@@ -35,9 +37,10 @@ public class OrderServiceImpl implements OrderService{
         connection.setAutoCommit(false);
         
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             
-            if(orderDao.add(new OrderEntity(dto.getOrderId(), sdf.format(new Date()), dto.getCustomerid()))){
+            if(orderDao.add(new OrderEntity(dto.getOrderId(), LocalDate.now().format(formatter), dto.getCustomerid()))){
                 boolean isOrderSaved = true;
                 for (OrderDetailDto orderDetailDto : dto.getOrderDetailDtos()) {
                     if(!(orderDetailDao.add(new OrderDetailEntity(dto.getOrderId(),
